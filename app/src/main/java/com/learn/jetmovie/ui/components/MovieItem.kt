@@ -1,10 +1,8 @@
 package com.learn.jetmovie.ui.components
 
-import android.content.Context
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -20,7 +18,6 @@ import com.learn.jetmovie.ui.utils.BASE_IMAGE
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun MovieItem(
-    id: Int,
     title: String,
     image: String,
     rating: String,
@@ -30,8 +27,7 @@ fun MovieItem(
     Card(
         onClick = onClick
     ) {
-        Row(
-        ) {
+        Row {
             AsyncImage(
                 model = ImageRequest.Builder(LocalContext.current)
                     .data("$BASE_IMAGE$image")
@@ -43,8 +39,7 @@ fun MovieItem(
                 modifier = Modifier.size(200.dp)
             )
             Divider(modifier = Modifier.width(8.dp))
-            Column(
-            ) {
+            Column {
                 Text(
                     text = title,
                     style = MaterialTheme.typography.h5
@@ -67,7 +62,6 @@ fun MovieItem(
 fun MovieItemPreview() {
     JetMovieTheme {
         MovieItem(
-            id = 1,
             title = "Avengers",
             image = "https://image.tmdb.org/t/p/w500/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg",
             rating = "8.5",

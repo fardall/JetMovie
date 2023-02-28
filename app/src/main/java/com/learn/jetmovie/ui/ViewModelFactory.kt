@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.learn.jetmovie.data.MovieRepository
+import com.learn.jetmovie.ui.screen.detail.DetailViewModel
 import com.learn.jetmovie.ui.screen.home.HomeViewModel
 import com.learn.jetmovie.ui.utils.Injection
 
@@ -11,10 +12,11 @@ class ViewModelFactory private constructor(private val movieRepository: MovieRep
     ViewModelProvider.NewInstanceFactory() {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
-            return HomeViewModel(movieRepository) as T
+        return when {
+            modelClass.isAssignableFrom(HomeViewModel::class.java) -> HomeViewModel(movieRepository) as T
+            modelClass.isAssignableFrom(DetailViewModel::class.java) -> DetailViewModel(movieRepository) as T
+            else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }
-        throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
     }
 
     companion object {
