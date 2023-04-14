@@ -9,6 +9,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.learn.jetmovie.ui.screen.about.AboutScreen
 import com.learn.jetmovie.ui.screen.detail.DetailScreen
 import com.learn.jetmovie.ui.screen.home.HomeScreen
 import com.learn.jetmovie.ui.theme.JetMovieTheme
@@ -28,8 +29,11 @@ fun JetMovieApp(
         ) {
             composable(route = Screen.Home.route) {
                 HomeScreen(
-                    onClick = { movieId ->
+                    onClickItem = { movieId ->
                         navController.navigate(Screen.Detail.createRoute(movieId))
+                    },
+                    onClickIcon = {
+                        navController.navigate(Screen.About.route)
                     },
                     modifier = Modifier.padding(innerPadding)
                 )
@@ -42,7 +46,10 @@ fun JetMovieApp(
                     }
                 )
             }
-    }
+            composable(route = Screen.About.route) {
+                AboutScreen()
+            }
+        }
     }
 }
 

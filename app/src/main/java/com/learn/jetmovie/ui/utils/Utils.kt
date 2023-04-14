@@ -1,19 +1,10 @@
 package com.learn.jetmovie.ui.utils
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import android.content.Context
+import android.widget.Toast
 
 const val BASE_IMAGE = "https://image.tmdb.org/t/p/w500"
 
-@Composable
-fun errorText(error: String) {
-    Box(contentAlignment = Alignment.Center) {
-        Text(
-            text = error,
-            style = MaterialTheme.typography.subtitle2
-        )
-    }
+fun showToast(context: Context, msg: String) {
+    Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
 }

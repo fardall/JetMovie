@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class SearchResponse(
 
 	@field:SerializedName("results")
-	val results: List<ResultsItem?>? = null,
+	val results: List<ResultsItem>? = null,
 )
 
 data class ResultsItem(
@@ -26,5 +26,5 @@ data class ResultsItem(
 	val voteAverage: Any? = null,
 
 	@field:SerializedName("id")
-	val id: Int? = null,
+	val id: Int,
 )

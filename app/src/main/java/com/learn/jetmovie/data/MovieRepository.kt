@@ -8,9 +8,7 @@ class MovieRepository(
 ) {
     fun searchMovie(query: String) = flow {
         val responseBody = apiService.searchMovie(query).results
-        if (responseBody != null) {
-            emit(responseBody)
-        }
+        responseBody?.let { emit(responseBody) }
     }
 
     fun getDetailMovie(movieId: Int) = flow {

@@ -1,5 +1,7 @@
 package com.learn.jetmovie.ui.screen.home
 
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.learn.jetmovie.data.MovieRepository
@@ -12,13 +14,20 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel(private val repository: MovieRepository) : ViewModel() {
 
-    private val _uiState = MutableStateFlow<Result<List<ResultsItem?>>>(Result.Loading)
-    val uiState: StateFlow<Result<List<ResultsItem?>>>
+    private val _uiState = MutableStateFlow<Result<List<ResultsItem>>>(Result.Loading)
+    val uiState: StateFlow<Result<List<ResultsItem>>>
         get() = _uiState
 
-    fun searchMovie(query: String) {
+    private val _query = mutableStateOf("")
+    val query: State<String> get() = _query
+
+    fun setQuery(query: String) {
+        _query.value = query
+    }
+
+    fun searchMovie() {
         viewModelScope.launch {
-            repository.searchMovie(query)
+            repository.searchMovie(_query.value)
                 .catch {
                     _uiState.value = Result.Error(it.message.toString())
                 }

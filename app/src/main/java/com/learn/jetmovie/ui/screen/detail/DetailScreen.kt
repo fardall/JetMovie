@@ -26,7 +26,7 @@ import com.learn.jetmovie.ui.ViewModelFactory
 import com.learn.jetmovie.ui.theme.JetMovieTheme
 import com.learn.jetmovie.ui.utils.BASE_IMAGE
 import com.learn.jetmovie.ui.utils.Result
-import com.learn.jetmovie.ui.utils.errorText
+import com.learn.jetmovie.ui.utils.showToast
 
 @Composable
 fun DetailScreen(
@@ -37,6 +37,7 @@ fun DetailScreen(
     onBackArrowClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val context = LocalContext.current
     viewModel.uiState.collectAsState(initial = Result.Loading).value.let { result ->
         when (result) {
             is Result.Loading -> {
@@ -50,7 +51,7 @@ fun DetailScreen(
                 )
             }
             is Result.Error -> {
-                errorText(error = result.error)
+                showToast(context, msg = result.error)
             }
         }
     }
